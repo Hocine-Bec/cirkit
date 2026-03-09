@@ -19,8 +19,7 @@ export default function BrandsTicker() {
         {DOUBLED.map((brand, i) => (
           <span
             key={i}
-            className="text-xl font-semibold uppercase tracking-widest"
-            style={{ color: 'rgba(163,163,163,0.4)' }}
+            className="text-xl font-semibold uppercase tracking-widest text-text-muted/40"
           >
             {brand}
           </span>

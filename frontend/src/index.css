@@ -78,6 +78,52 @@ body {
   background-clip: text;
 }
 
+/* Glitch text effect */
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #F5F5F5 0%, #3B82F6 50%, #8B5CF6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  pointer-events: none;
+}
+.glitch-text::before {
+  animation: glitch-clip-1 6s infinite;
+  left: -2px;
+  filter: hue-rotate(80deg);
+}
+.glitch-text::after {
+  animation: glitch-clip-2 6s infinite;
+  left: 2px;
+  filter: hue-rotate(220deg);
+}
+
+@keyframes glitch-clip-1 {
+  0%, 88%, 100% { clip-path: inset(100% 0 0 0); }
+  89%           { clip-path: inset(5%  0 72% 0); transform: translate(-3px); }
+  90%           { clip-path: inset(48% 0 38% 0); transform: translate(3px);  }
+  91%           { clip-path: inset(78% 0 8%  0); transform: translate(-2px); }
+  92%           { clip-path: inset(100% 0 0 0);  }
+}
+@keyframes glitch-clip-2 {
+  0%, 92%, 100% { clip-path: inset(100% 0 0 0); }
+  93%           { clip-path: inset(18% 0 58% 0); transform: translate(4px);  }
+  94%           { clip-path: inset(58% 0 18% 0); transform: translate(-4px); }
+  95%           { clip-path: inset(35% 0 42% 0); transform: translate(2px);  }
+  96%           { clip-path: inset(100% 0 0 0);  }
+}
+
 /* Noise texture overlay */
 .noise::before {
   content: '';

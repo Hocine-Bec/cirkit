@@ -15,7 +15,7 @@ export default function CategoriesSection() {
   return (
     <section id="categories" className="py-20 md:py-28 px-4 bg-bg-secondary/30">
       <div className="max-w-7xl mx-auto">
-        <SectionHeading title="Browse Categories" className="mb-12" />
+        <SectionHeading title="Browse Categories" subtitle="Shop by your area of interest" gradient className="mb-12" />
 
         {isLoading ? (
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">

@@ -30,6 +30,7 @@ export default function NewArrivalsSection() {
             title="New Arrivals"
             subtitle="The latest additions"
             align="left"
+            gradient
           />
           <div className="hidden md:flex items-center gap-2">
             <button

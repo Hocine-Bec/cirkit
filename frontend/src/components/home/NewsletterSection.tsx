@@ -15,9 +15,9 @@ export default function NewsletterSection() {
   };
 
   return (
-    <section className="py-20 px-4" style={{ background: 'linear-gradient(to right, #141414, rgba(59,130,246,0.05), #141414)' }}>
+    <section className="py-20 px-4 bg-gradient-to-r from-bg-primary via-accent/5 to-bg-primary">
       <div className="max-w-lg mx-auto text-center">
-        <h2 className="text-2xl font-bold text-text-primary">Stay in the loop</h2>
+        <h2 className="text-2xl font-bold gradient-text">Stay in the loop</h2>
         <p className="text-text-secondary mt-2">
           Get notified about new products and exclusive deals
         </p>
