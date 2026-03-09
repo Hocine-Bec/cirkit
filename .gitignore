@@ -25,3 +25,5 @@ Thumbs.db
 
 # EF Migrations are tracked
 !backend/Infrastructure/Data/Migrations/
+frontend/out.txt
+frontend/test-checkout.cjs
