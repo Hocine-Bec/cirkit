@@ -88,7 +88,7 @@ export default function NewArrivalsSection() {
           {isLoading ? (
             <div className="flex gap-4 overflow-hidden">
               {Array.from({ length: 4 }).map((_, i) => (
-                <Skeleton key={i} className="flex-shrink-0 rounded-2xl" style={{ width: CARD_WIDTH, aspectRatio: '3/4' }} />
+                <Skeleton key={i} className="flex-shrink-0 w-[300px] aspect-[3/4] rounded-2xl" />
               ))}
             </div>
           ) : (
@@ -103,7 +103,7 @@ export default function NewArrivalsSection() {
               viewport={{ once: true }}
             >
               {data?.map((product) => (
-                <div key={product.id} className="snap-start flex-shrink-0" style={{ width: CARD_WIDTH }}>
+                <div key={product.id} className="snap-start flex-shrink-0 w-[300px]">
                   <ProductCard product={product} showNewBadge />
                 </div>
               ))}
