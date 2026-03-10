@@ -26,7 +26,7 @@
   --color-border-hover: #404040;
 
   /* Typography */
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
 
@@ -35,8 +35,19 @@ body {
   background-color: #0A0A0A;
   color: #F5F5F5;
   font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3 {
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+h4, h5, h6 {
+  letter-spacing: -0.01em;
 }
 
 /* Scrollbar styling for dark theme */
@@ -122,6 +133,37 @@ body {
   94%           { clip-path: inset(58% 0 18% 0); transform: translate(-4px); }
   95%           { clip-path: inset(35% 0 42% 0); transform: translate(2px);  }
   96%           { clip-path: inset(100% 0 0 0);  }
+}
+
+/* Card hover — lift + neon glow */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(59, 130, 246, 0.12), 0 0 0 1px rgba(59, 130, 246, 0.18);
+}
+
+/* Ambient section glow — radial light source behind content */
+.section-glow {
+  position: relative;
+  overflow: hidden;
+}
+.section-glow::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 500px;
+  background: radial-gradient(ellipse, rgba(59, 130, 246, 0.07) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+.section-glow > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* Noise texture overlay */

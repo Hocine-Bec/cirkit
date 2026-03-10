@@ -54,8 +54,7 @@ function Counter({
 
 export default function StatsSection() {
   return (
-    <section className="py-16 px-4 relative overflow-hidden">
-      {/* subtle background rule */}
+    <section className="relative py-16 px-4 section-glow">
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-accent/5 to-transparent pointer-events-none" />
 
       <div className="max-w-5xl mx-auto">
@@ -73,7 +72,7 @@ export default function StatsSection() {
                 hidden:   { opacity: 0, y: 24 },
                 visible:  { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } },
               }}
-              className="glass rounded-2xl p-6 text-center border border-border hover:border-accent/30 transition-colors duration-300 group"
+              className="glass card-hover rounded-2xl p-6 text-center border border-border hover:border-accent/30 group"
             >
               <div className="flex justify-center mb-3">
                 <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors duration-300">

@@ -5,7 +5,7 @@ const DOUBLED = [...BRANDS, ...BRANDS];
 
 export default function BrandsTicker() {
   return (
-    <div className="py-8 border-y border-border overflow-hidden relative">
+    <div className="py-6 border-y border-border/50 overflow-hidden relative bg-bg-secondary/20">
       {/* Edge fades */}
       <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-bg-primary to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-bg-primary to-transparent z-10 pointer-events-none" />
@@ -19,7 +19,7 @@ export default function BrandsTicker() {
         {DOUBLED.map((brand, i) => (
           <span
             key={i}
-            className="text-xl font-semibold uppercase tracking-widest text-text-muted/40"
+            className="text-sm font-semibold uppercase tracking-[0.25em] text-text-muted/60 hover:text-text-muted transition-colors duration-300 cursor-default"
           >
             {brand}
           </span>

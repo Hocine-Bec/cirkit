@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Zap, Tag } from 'lucide-react';
+import { Tag, CheckCircle2 } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import SectionHeading from '@/components/shared/SectionHeading';
 
@@ -30,21 +30,26 @@ function useCountdown() {
 
 function TimeUnit({ value, label }: { value: number; label: string }) {
   return (
-    <div className="flex flex-col items-center">
-      <div className="glass border border-border rounded-xl w-16 h-16 flex items-center justify-center font-mono text-2xl font-bold text-text-primary tabular-nums">
-        {String(value).padStart(2, '0')}
+    <div className="flex flex-col items-center gap-1.5">
+      <div className="relative w-16 h-16 rounded-xl border border-accent/30 bg-accent/8 flex items-center justify-center overflow-hidden">
+        {/* Subtle inner glow */}
+        <div className="absolute inset-0 bg-gradient-to-b from-accent/10 to-transparent pointer-events-none" />
+        <span className="font-mono text-2xl font-bold text-text-primary tabular-nums relative z-10">
+          {String(value).padStart(2, '0')}
+        </span>
       </div>
-      <span className="text-text-muted text-xs mt-1 uppercase tracking-widest font-mono">{label}</span>
+      <span className="text-text-muted text-[10px] uppercase tracking-[0.2em] font-mono">{label}</span>
     </div>
   );
 }
 
 const DEAL = {
-  name: 'Sony WH-1000XM5 Wireless Headphones',
-  originalPrice: 399,
-  discountPrice: 279,
-  discount: 30,
-  image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80',
+  name: 'MacBook Air 15" — M3 Chip',
+  originalPrice: 1299,
+  discountPrice: 999,
+  discount: 23,
+  image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=900&q=85',
+  features: ['Apple M3 chip with 10-core GPU', '18-hour battery life', '15.3" Liquid Retina display'],
 };
 
 export default function DealOfTheDaySection() {
@@ -52,9 +57,10 @@ export default function DealOfTheDaySection() {
   const savings = DEAL.originalPrice - DEAL.discountPrice;
 
   return (
-    <section className="py-20 md:py-28 px-4">
+    <section className="relative py-20 md:py-28 px-4 section-glow">
       <div className="max-w-7xl mx-auto">
         <SectionHeading
+          eyebrow="Flash Sale"
           title="Deal of the Day"
           subtitle="Limited time offer — don't miss out"
           gradient
@@ -62,41 +68,56 @@ export default function DealOfTheDaySection() {
         />
 
         <motion.div
-          className="glass rounded-3xl border border-border overflow-hidden grid md:grid-cols-2"
+          className="relative rounded-3xl border border-border overflow-hidden grid md:grid-cols-2"
+          style={{ background: 'rgba(26,26,26,0.5)', backdropFilter: 'blur(12px)' }}
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
+          {/* Accent top border line */}
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent" />
+
           {/* Left — product info */}
-          <div className="p-8 md:p-12 flex flex-col justify-center">
-            <span className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-widest text-accent bg-accent/10 border border-accent/20 rounded-full px-3 py-1 w-fit mb-6">
-              <Zap size={11} />
-              Deal of the Day
-            </span>
+          <div className="p-8 md:p-12 flex flex-col justify-center border-b md:border-b-0 md:border-r border-border/50">
 
-            <h3 className="text-text-primary text-2xl md:text-3xl font-bold leading-tight mb-4">
-              {DEAL.name}
-            </h3>
-
+            {/* Price */}
             <div className="flex items-baseline gap-3 mb-2">
-              <span className="text-4xl font-bold gradient-text">${DEAL.discountPrice}</span>
-              <span className="text-text-muted line-through text-xl">${DEAL.originalPrice}</span>
+              <span className="text-5xl font-bold gradient-text">${DEAL.discountPrice}</span>
+              <span className="text-text-muted line-through text-2xl">${DEAL.originalPrice}</span>
             </div>
 
-            <div className="flex items-center gap-2 mb-8">
-              <Tag size={14} className="text-green-400" />
+            {/* Savings badge */}
+            <div className="flex items-center gap-2 mb-6">
+              <Tag size={13} className="text-green-400" />
               <span className="text-green-400 text-sm font-medium">
                 You save ${savings} ({DEAL.discount}% off)
               </span>
             </div>
 
-            <p className="text-text-muted text-xs uppercase tracking-widest font-mono mb-3">Ends in</p>
-            <div className="flex items-center gap-3 mb-8">
+            <h3 className="text-text-primary text-2xl md:text-3xl font-bold leading-tight mb-5">
+              {DEAL.name}
+            </h3>
+
+            {/* Feature bullets */}
+            <ul className="flex flex-col gap-2 mb-8">
+              {DEAL.features.map(f => (
+                <li key={f} className="flex items-center gap-2.5 text-sm text-text-secondary">
+                  <CheckCircle2 size={14} className="text-accent flex-shrink-0" />
+                  {f}
+                </li>
+              ))}
+            </ul>
+
+            {/* Countdown */}
+            <p className="text-text-muted text-[10px] uppercase tracking-[0.25em] font-mono mb-3">
+              Offer ends in
+            </p>
+            <div className="flex items-end gap-2 mb-8">
               <TimeUnit value={hours}   label="hrs" />
-              <span className="text-text-muted text-2xl font-bold pb-5">:</span>
+              <span className="text-text-muted text-xl font-bold mb-6 leading-none">:</span>
               <TimeUnit value={minutes} label="min" />
-              <span className="text-text-muted text-2xl font-bold pb-5">:</span>
+              <span className="text-text-muted text-xl font-bold mb-6 leading-none">:</span>
               <TimeUnit value={seconds} label="sec" />
             </div>
 
@@ -107,17 +128,22 @@ export default function DealOfTheDaySection() {
             </Link>
           </div>
 
-          {/* Right — product image */}
-          <div className="relative flex items-center justify-center bg-gradient-to-br from-accent/5 via-transparent to-purple-500/5 p-8 md:p-12 min-h-[300px]">
-            <motion.img
+          {/* Right — product image, full-bleed photo panel */}
+          <div className="relative min-h-[360px] md:min-h-0 overflow-hidden">
+            <img
               src={DEAL.image}
               alt={DEAL.name}
-              className="w-full max-w-xs object-contain drop-shadow-2xl"
-              animate={{ y: [0, -12, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute inset-0 w-full h-full object-cover object-center"
             />
-            <div className="absolute top-6 right-6 w-14 h-14 rounded-full bg-accent flex items-center justify-center font-bold text-white text-sm font-mono shadow-lg shadow-accent/30">
-              -{DEAL.discount}%
+            {/* Left-edge fade into the card */}
+            <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#1a1a1a80] to-transparent pointer-events-none" />
+            {/* Bottom fade */}
+            <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#1a1a1a60] to-transparent pointer-events-none" />
+
+            {/* Discount pill */}
+            <div className="absolute top-5 right-5 bg-accent rounded-2xl px-3 py-1.5 flex flex-col items-center shadow-lg shadow-accent/40 z-10">
+              <span className="text-white font-mono font-bold text-lg leading-none">-{DEAL.discount}%</span>
+              <span className="text-white/70 text-[10px] font-mono uppercase tracking-wider">off</span>
             </div>
           </div>
         </motion.div>

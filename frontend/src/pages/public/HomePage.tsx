@@ -19,13 +19,10 @@ export default function HomePage() {
       <WhyChooseUsSection />
       <CircuitDivider />
       <FeaturedSection />
-      <CircuitDivider flip />
       <DealOfTheDaySection />
-      <CircuitDivider />
       <CategoriesSection />
-      <CircuitDivider flip />
       <NewArrivalsSection />
-      <CircuitDivider />
+      <CircuitDivider flip />
       <TestimonialsSection />
       <NewsletterSection />
     </>
