@@ -65,7 +65,7 @@ export default function ProductCard({ product, showNewBadge }: Props) {
               <img
                 src={product.imageUrl}
                 alt={product.name}
-                className="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               {product.stockQuantity === 0 && (
                 <div className="absolute inset-0 bg-bg-primary/80 flex items-center justify-center">
@@ -74,14 +74,14 @@ export default function ProductCard({ product, showNewBadge }: Props) {
               )}
               {product.isFeatured && (
                 <div className="absolute top-3 left-3">
-                  <span className="bg-accent/20 text-accent text-xs font-medium px-2 py-1 rounded-full border border-accent/30">
+                  <span className="backdrop-blur-sm bg-bg-primary/80 text-accent text-xs font-medium px-2 py-1 rounded-full border border-accent/40">
                     Featured
                   </span>
                 </div>
               )}
               {showNewBadge && (
                 <div className="absolute top-3 right-3">
-                  <span className="bg-success/20 text-success text-xs font-medium px-2 py-1 rounded-full border border-success/30">
+                  <span className="backdrop-blur-sm bg-bg-primary/80 text-success text-xs font-medium px-2 py-1 rounded-full border border-success/40">
                     New
                   </span>
                 </div>

@@ -29,6 +29,7 @@ public class ProductRepository(AppDbContext context)
             .AsNoTracking()
             .Where(p => p.IsFeatured && p.IsActive)
             .Include(p => p.Category)
+            .Include(p => p.Reviews)
             .OrderBy(p => p.Name)
             .Take(count)
             .ToListAsync();
@@ -38,6 +39,7 @@ public class ProductRepository(AppDbContext context)
             .AsNoTracking()
             .Where(p => p.IsActive)
             .Include(p => p.Category)
+            .Include(p => p.Reviews)
             .OrderByDescending(p => p.CreatedAt)
             .Take(count)
             .ToListAsync();
@@ -50,6 +52,7 @@ public class ProductRepository(AppDbContext context)
             .AsNoTracking()
             .Where(p => p.IsActive)
             .Include(p => p.Category)
+            .Include(p => p.Reviews)
             .AsQueryable();
 
         if (categoryId.HasValue)
