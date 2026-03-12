@@ -20,7 +20,9 @@ export default function RelatedProducts({ categoryId, currentProductId }: Props)
 
   return (
     <section className="mt-16 pt-12 border-t border-border">
-      <h2 className="text-2xl font-bold text-text-primary mb-8">You might also like</h2>
+      <h2 className="text-2xl font-bold mb-8">
+        You Might <span className="gradient-text">Also Like</span>
+      </h2>
       <motion.div
         className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
         variants={staggerContainer}
