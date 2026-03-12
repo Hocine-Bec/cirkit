@@ -57,6 +57,19 @@ export default function ImageManager({ isOpen, onClose, product }: ImageManagerP
         onError: (err: any) => toast.error(err.response?.data?.detail || 'Failed to add image'),
     });
 
+    const setMainImageMutation = useMutation({
+        mutationFn: (img: any) => productsApi.updateImage(product!.id, img.id, {
+            imageUrl: img.imageUrl,
+            displayOrder: 0,
+            isMain: true
+        }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['admin', 'product', product?.id] });
+            toast.success('Main image updated');
+        },
+        onError: () => toast.error('Failed to update main image'),
+    });
+
     const deleteImageMutation = useMutation({
         mutationFn: (imageId: string) => productsApi.deleteImage(product!.id, imageId),
         onSuccess: () => {
@@ -104,7 +117,13 @@ export default function ImageManager({ isOpen, onClose, product }: ImageManagerP
                                                 {img.isMain ? (
                                                     <Badge variant="info" className="px-2 py-0.5 text-[10px]">Main</Badge>
                                                 ) : (
-                                                    <span /> // Spacer
+                                                    <button
+                                                        onClick={() => setMainImageMutation.mutate(img)}
+                                                        className="p-1.5 bg-accent/90 text-white hover:bg-accent rounded-md transition-colors flex items-center gap-1.5 text-[10px] font-medium"
+                                                        title="Set as Main"
+                                                    >
+                                                        <Star className="w-3 h-3" /> Set Main
+                                                    </button>
                                                 )}
                                                 <button
                                                     onClick={() => {
