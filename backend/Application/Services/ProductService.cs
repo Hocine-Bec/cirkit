@@ -128,11 +128,31 @@ public class ProductService : IProductService
         if (!validation.IsSuccess)
             return Result<ProductImageResponse>.Failure(validation.Error, validation.ErrorType);
 
-        if (!await _unitOfWork.Products.ExistsAsync(p => p.Id == productId))
+        var product = await _unitOfWork.Products.GetByIdAsync(productId);
+        if (product is null)
             return Result<ProductImageResponse>.Failure("Product not found", ErrorType.NotFound);
 
-        var image = request.Adapt<ProductImage>();
+        // Check if this is the first image for the product
+        var isFirstImage = !await _unitOfWork.ProductImages.ExistsAsync(i => i.ProductId == productId);
+        
+        // Use a modified request if it's the first image to force it as main
+        var finalRequest = isFirstImage ? request with { IsMain = true } : request;
+
+        if (finalRequest.IsMain)
+        {
+            var otherImages = await _unitOfWork.ProductImages.FindAsync(i => i.ProductId == productId && i.IsMain);
+            foreach (var other in otherImages)
+            {
+                other.IsMain = false;
+                _unitOfWork.ProductImages.Update(other);
+            }
+            product.ImageUrl = finalRequest.ImageUrl;
+            _unitOfWork.Products.Update(product);
+        }
+
+        var image = finalRequest.Adapt<ProductImage>();
         image.ProductId = productId;
+        if (image.IsMain) image.DisplayOrder = 0;
 
         await _unitOfWork.ProductImages.AddAsync(image);
         await _unitOfWork.SaveChangesAsync();
@@ -150,6 +170,38 @@ public class ProductService : IProductService
         if (image is null || image.ProductId != productId)
             return Result<ProductImageResponse>.Failure("Image not found", ErrorType.NotFound);
 
+        var product = await _unitOfWork.Products.GetByIdAsync(productId);
+        if (product is null)
+            return Result<ProductImageResponse>.Failure("Product not found", ErrorType.NotFound);
+
+        if (request.IsMain)
+        {
+            var otherImages = await _unitOfWork.ProductImages.FindAsync(i => i.ProductId == productId && i.Id != imageId && i.IsMain);
+            foreach (var other in otherImages)
+            {
+                other.IsMain = false;
+                _unitOfWork.ProductImages.Update(other);
+            }
+            product.ImageUrl = request.ImageUrl;
+            _unitOfWork.Products.Update(product);
+        }
+        else if (image.IsMain && !request.IsMain)
+        {
+            // If we're unsetting the main image, pick another one if available
+            var nextImage = await _unitOfWork.ProductImages.FirstOrDefaultAsync(i => i.ProductId == productId && i.Id != imageId);
+            if (nextImage != null)
+            {
+                nextImage.IsMain = true;
+                _unitOfWork.ProductImages.Update(nextImage);
+                product.ImageUrl = nextImage.ImageUrl;
+            }
+            else
+            {
+                product.ImageUrl = string.Empty;
+            }
+            _unitOfWork.Products.Update(product);
+        }
+
         request.Adapt(image);
         _unitOfWork.ProductImages.Update(image);
         await _unitOfWork.SaveChangesAsync();
@@ -162,6 +214,26 @@ public class ProductService : IProductService
         var image = await _unitOfWork.ProductImages.GetByIdAsync(imageId);
         if (image is null || image.ProductId != productId)
             return Result<bool>.Failure("Image not found", ErrorType.NotFound);
+
+        if (image.IsMain)
+        {
+            var nextImage = await _unitOfWork.ProductImages.FirstOrDefaultAsync(i => i.ProductId == productId && i.Id != imageId);
+            var product = await _unitOfWork.Products.GetByIdAsync(productId);
+            if (product != null)
+            {
+                if (nextImage != null)
+                {
+                    nextImage.IsMain = true;
+                    _unitOfWork.ProductImages.Update(nextImage);
+                    product.ImageUrl = nextImage.ImageUrl;
+                }
+                else
+                {
+                    product.ImageUrl = string.Empty;
+                }
+                _unitOfWork.Products.Update(product);
+            }
+        }
 
         _unitOfWork.ProductImages.Delete(image);
         await _unitOfWork.SaveChangesAsync();

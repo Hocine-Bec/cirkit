@@ -148,7 +148,7 @@ public static class DatabaseSeeder
             Description = "Galaxy Tab S9 Ultra is the ultimate creative tablet with a massive 14.6\" Dynamic AMOLED 2X display and included S Pen. Powered by Snapdragon 8 Gen 2, it's IP68 water-resistant and features dual front cameras perfect for video calls.",
             ShortDescription = "14.6\" Dynamic AMOLED 2X, S Pen included, Snapdragon 8 Gen 2",
             BasePrice = 1199.00m, ImageUrl = "https://images.unsplash.com/photo-1632296397699-b5a68ba37f8c?w=600&q=80",
-            Brand = "Samsung", Sku = "SAM-GTS9U", StockQuantity = 15, IsFeatured = false,
+            Brand = "Samsung", Sku = "SAM-GTS9U", StockQuantity = 15, IsFeatured = true,
             Specifications = "{\"Display\":\"14.6\\\" Dynamic AMOLED 2X 120Hz\",\"Chip\":\"Snapdragon 8 Gen 2\",\"Storage\":\"256GB (base)\",\"Cameras\":\"13MP + 8MP Rear | 12MP + 12MP Front\",\"Connectivity\":\"Wi-Fi 6E + optional 5G\",\"Rating\":\"IP68\",\"Weight\":\"732g\"}",
             CreatedAt = now, UpdatedAt = now
         };

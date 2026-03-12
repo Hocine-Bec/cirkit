@@ -34,7 +34,7 @@ public class ProductRepository(AppDbContext context)
             .Take(count)
             .ToListAsync();
 
-    public async Task<IEnumerable<Product>> GetNewArrivalsAsync(int count = 8) =>
+    public async Task<IEnumerable<Product>> GetNewArrivalsAsync(int count = 12) =>
         await _context.Products
             .AsNoTracking()
             .Where(p => p.IsActive)
