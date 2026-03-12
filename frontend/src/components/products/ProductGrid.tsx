@@ -38,9 +38,17 @@ export default function ProductGrid({ categoryId, brand, minPrice, maxPrice, inS
 
   return (
     <div className="flex-1 min-w-0">
-      <div className="flex items-center justify-between mb-6">
-        <p className="text-text-secondary text-sm">
-          {isLoading ? 'Loading...' : `${data?.totalCount ?? 0} products found`}
+      {/* Toolbar */}
+      <div className="flex items-center justify-between mb-6 pb-4 border-b border-border">
+        <p className="text-sm">
+          {isLoading ? (
+            <span className="text-text-muted">Loading products…</span>
+          ) : (
+            <>
+              <span className="text-text-primary font-semibold">{data?.totalCount ?? 0}</span>
+              <span className="text-text-muted"> products found</span>
+            </>
+          )}
         </p>
         <SortDropdown />
       </div>
@@ -54,16 +62,18 @@ export default function ProductGrid({ categoryId, brand, minPrice, maxPrice, inS
       )}
 
       {error && (
-        <div className="text-center py-16 text-text-muted">
+        <div className="text-center py-16 text-text-muted text-sm">
           Something went wrong. Please try again.
         </div>
       )}
 
       {!isLoading && !error && data?.items.length === 0 && (
         <div className="flex flex-col items-center justify-center py-24 text-center">
-          <PackageSearch size={48} className="text-text-muted mb-4" />
-          <h3 className="text-text-secondary font-medium">No products found</h3>
-          <p className="text-text-muted text-sm mt-1">Try adjusting your filters</p>
+          <div className="w-16 h-16 rounded-2xl bg-bg-tertiary border border-border flex items-center justify-center mb-4">
+            <PackageSearch size={28} className="text-text-muted" />
+          </div>
+          <h3 className="text-text-primary font-semibold">No products found</h3>
+          <p className="text-text-muted text-sm mt-1">Try adjusting or clearing your filters</p>
         </div>
       )}
 
