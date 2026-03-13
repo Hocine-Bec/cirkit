@@ -22,7 +22,7 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
-function SectionHeader({ step, icon: Icon, title }: { step: string; icon: React.ElementType; title: string }) {
+function SectionHeader({ step, icon: Icon, title }: { step: string; icon: React.ComponentType<{ size?: number; className?: string }>; title: string }) {
   return (
     <div className="flex items-center gap-3 mb-5">
       <div className="w-8 h-8 rounded-xl bg-accent/15 border border-accent/30 flex items-center justify-center flex-shrink-0">
