@@ -14,18 +14,30 @@ CirKit is a premium, high-performance electronics e-commerce storefront built wi
 **1. Hero & Navigation**
 ![Hero Section](./images/hero-section.png)
 
-**2. Featured Products**
+**2. Why Choose Us**
+![Why Choose Us](./images/why-choose-us.png)
+
+**3. Featured Products**
 ![Featured Products](./images/featured-products.png)
 
-**3. Product Catalog**
-![All Products](./images/all-products.png)
+**4. Deal of the Day**
+![Deal of the Day](./images/deal-of-day.png)
 
-**4. Category Browsing**
+**5. Browse Categories**
 ![Browse Categories](./images/browse-categories.png)
 
-**5. Shopping Cart & Checkout**
+**6. New Arrivals**
+![New Arrivals](./images/new-arrivals.png)
+
+**7. Customer Reviews**
+![Customer Reviews](./images/customer-reviews.png)
+
+**8. Product Catalog**
+![All Products](./images/all-products.png)
+
+**9. Shopping Cart**
 ![Cart Sidebar](./images/cart-sidebar.png)
-![Checkout Flow](./images/checkout-page.png)
+![Shopping Cart](./images/shopping-cart.png)
 
 </details>
 
@@ -43,8 +55,6 @@ CirKit is a premium, high-performance electronics e-commerce storefront built wi
 **3. Order Fulfillment**
 ![Order Tracking](./images/admin-orders.png)
 
-**4. Customer Insights**
-![Customer CRM](./images/admin-customers.png)
 </details>
 
 ---
